@@ -87,7 +87,7 @@ class SchemaVisitor(object):
                 node.tag, ref, self.schema, array_type=array_type)
 
     def process_reference(self, node, **kwargs):
-        ref = qname_attr(node, 'ref')
+        ref = qname_attr(node, 'ref', self.document._target_namespace)
         if not ref:
             return
 
@@ -360,7 +360,7 @@ class SchemaVisitor(object):
                     xsd_type = self.process(child, node)
 
         if not xsd_type:
-            node_type = qname_attr(node, 'type')
+            node_type = qname_attr(node, 'type', self.document._target_namespace)
             if node_type:
                 xsd_type = self._get_type(node_type.text)
             else:
